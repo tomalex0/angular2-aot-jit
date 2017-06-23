@@ -1,9 +1,9 @@
 # angular2-aot-jit
 
-#Build Aot
+## Build Aot
 
 `npm run buildaot`
 
-#Build Jit
+## Build Jit
 
 `npm run buildjit`
