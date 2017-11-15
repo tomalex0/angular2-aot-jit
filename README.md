@@ -1,4 +1,4 @@
-# angular2-aot-jit
+# angularx-aot-jit
 
 ### Build Aot
 
