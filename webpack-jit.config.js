@@ -11,13 +11,12 @@ module.exports = {
   },
   entry: './js/ng2/app/main.jit.ts',
   output: {
-    path: './dist-jit',
-    publicPath: 'dist-jit/',
+    path: path.resolve(__dirname, 'dist-jit'),
     filename: 'app.main.js'
   },
   plugins: [
     new webpack.ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+        /angular(\\|\/)core(\\|\/)@angular/,
         path.resolve(__dirname, 'doesnotexist/')
     ),
     new webpack.optimize.UglifyJsPlugin({
