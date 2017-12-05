@@ -12,14 +12,11 @@ module.exports = {
   },
   entry: './js/ng2/app/main.jit.ts',
   output: {
-    path: path.resolve(__dirname, '.build'),
+    path: path.resolve(__dirname, '.build/jit'),
     filename: 'app.main.js'
   },
   plugins: [
-    new webpack.ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)@angular/,
-        path.resolve(__dirname, 'doesnotexist/')
-    ),
+    new webpack.ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -35,7 +32,8 @@ module.exports = {
             from: './index.html', to: 'index.html'
         },
         {
-            from: './node_modules/zone.js/**'
+            from: './node_modules/zone.js/dist/zone.js',
+            to: './node_modules/zone.js/dist/zone.js'
         }
     ])
   ],
@@ -55,7 +53,13 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        use: ['awesome-typescript-loader', 'angular2-template-loader','angular-router-loader']
+        use: ['awesome-typescript-loader', 'angular2-template-loader']
+      },
+      {
+        test: /\.(ts|js)$/,
+        loaders: [
+            'angular-router-loader'
+        ]
       }
     ]
   }

@@ -1,4 +1,4 @@
-const ngToolsWebpack = require('@ngtools/webpack');
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var webpack = require('webpack');
@@ -12,11 +12,11 @@ module.exports = {
   },
   entry: './js/ng2/app/main.aot.ts',
   output: {
-    path: path.resolve(__dirname, '.build'),
+    path: path.resolve(__dirname, '.build/aot'),
     filename: 'app.main.js'
   },
   plugins: [
-    new ngToolsWebpack.AotPlugin({
+    new AngularCompilerPlugin({
       tsConfigPath: './tsconfig-aot.json',
       entryModule: appModule
     }),
@@ -41,7 +41,8 @@ module.exports = {
             from: './index.html', to: 'index.html'
         },
         {
-            from: './node_modules/zone.js/**'
+            from: './node_modules/zone.js/dist/zone.js',
+            to: './node_modules/zone.js/dist/zone.js'
         }
     ])
   ],
@@ -50,7 +51,10 @@ module.exports = {
       {test: /\.scss$/, use: ['raw-loader', 'sass-loader']},
       {test: /\.css$/, use: 'raw-loader'},
       {test: /\.html$/, use: 'raw-loader'},
-      {test: /\.ts$/, use: '@ngtools/webpack'}
+      {
+          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          loader: '@ngtools/webpack'
+      }
     ]
   },
   devServer: {
