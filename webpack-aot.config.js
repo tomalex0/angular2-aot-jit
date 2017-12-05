@@ -1,6 +1,6 @@
 const ngToolsWebpack = require('@ngtools/webpack');
 
-//var CopyWebpackPlugin = require('copy-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var webpack = require('webpack');
 var path = require('path');
 var appModule = __dirname + '/js/ng2/app/app.module#AppModule';
@@ -12,7 +12,7 @@ module.exports = {
   },
   entry: './js/ng2/app/main.aot.ts',
   output: {
-    path: path.resolve(__dirname, 'dist-aot'),
+    path: path.resolve(__dirname, '.build'),
     filename: 'app.main.js'
   },
   plugins: [
@@ -35,7 +35,15 @@ module.exports = {
         comments: false
       },
       sourceMap: true
-    })
+    }),
+    new CopyWebpackPlugin([
+        {
+            from: './index.html', to: 'index.html'
+        },
+        {
+            from: './node_modules/zone.js/**'
+        }
+    ])
   ],
   module: {
     rules: [
