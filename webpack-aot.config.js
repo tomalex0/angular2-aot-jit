@@ -10,19 +10,22 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js']
   },
-  entry: './js/ng2/app/main.aot.ts',
+  entry: './js/ng2/app/main.jit.ts',
+  //entry: './js/ng2/app/main.aot.ts',
   output: {
     path: path.resolve(__dirname, '.build/aot'),
     filename: 'app.main.js'
   },
   plugins: [
+    new webpack.DefinePlugin({
+        'process.env': {
+            'TYPE': JSON.stringify('AOT')
+        }
+    }),
     new AngularCompilerPlugin({
       tsConfigPath: './tsconfig-aot.json',
       entryModule: appModule
     }),
-    //new CopyWebpackPlugin([
-    //	{from: './index.html'}
-    //]),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false

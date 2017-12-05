@@ -1,6 +1,4 @@
 
-
-//var CopyWebpackPlugin = require('copy-webpack-plugin');
 var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -16,6 +14,11 @@ module.exports = {
     filename: 'app.main.js'
   },
   plugins: [
+    new webpack.DefinePlugin({
+        'process.env': {
+            'TYPE': JSON.stringify('JIT')
+        }
+    }),
     new webpack.ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './client')),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
