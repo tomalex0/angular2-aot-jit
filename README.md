@@ -7,7 +7,7 @@
  1. `http://localhost:2020`
 
 
-### Steps to build AOT co
+### Steps to build AOT code
  1. `npm install`
  1. `npm run buildaot`
  1. `npm run start-aot`
